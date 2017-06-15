@@ -1,0 +1,150 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Results</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+		<!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+	</head>
+	<body>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									<a href="/index" class="logo"><strong>Search</strong>book</a>
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Results</h1>
+									</header>
+
+									<!--<span class="image main"><img src="images/pic11.jpg" alt="" /></span>-->
+									
+									<%for @num in 0..9%>
+										
+										<%if @book[@num]["volumeInfo"]["title"].is_a? String%>
+											<form action="/elements" method="POST">
+												<input type="hidden" value="hidden" name="info"/><br>
+    											<input type="submit" value="<%=@book[@num]["volumeInfo"]["title"]%>" name="Book_title" />
+											</form>
+										<%else%>
+											<h2>There is no title, sorry!!</h2>
+										<%end%>
+										
+										<%if @book[@num]["volumeInfo"]["authors"].is_a? Array%>
+											<h3><%=@book[@num]["volumeInfo"]["authors"].join(", ")%></h3>
+										<%else%>
+											<h3>Authors are unknown</h3>
+										<%end%>
+										
+										<%if @book[@num]["volumeInfo"].key?("imageLinks")%>
+											<img src="<%=@book[@num]["volumeInfo"]["imageLinks"]["thumbnail"]%>">
+										<%else%>
+											<h3>No image provided</h3>
+										<%end%>
+										
+										<%if @book[@num].key?("searchInfo")%>
+											<p><%=@book[@num]["searchInfo"]["textSnippet"]%></p>
+										<%else%>
+											<h3>No description provided</h3>
+										<%end%>
+										
+										<hr></hr>
+									<%end%>
+									
+									
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="POST" action="/search_terms">
+										<input type="text" name="search" id="query" placeholder="Search by keyword" />
+										<input type="submit">
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="/index">Homepage</a></li>
+				
+									
+									</ul>
+								</nav>
+
+							<!-- Section -->
+								<section>
+									<header class="major">
+										<h2>Our Favorite Books</h2>
+									</header>
+									<div class="mini-posts">
+										<article>
+											<h3>Sabella Rose Jaroszewski</h3>
+											<a href="https://www.amazon.com/Inkheart-Trilogy-Cornelia-Funke/dp/0439709105?SubscriptionId=AKIAILSHYYTFIVPWUY6Q&tag=duckduckgo-ffab-20&linkCode=xm2&camp=2025&creative=165953&creativeASIN=0439709105" class="image"><img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Fjennifermelzer.com%2Fwp-content%2Fuploads%2F2015%2F03%2Finkheart-cover.jpg&f=1" alt="" /></a>
+											<h3>Inkheart by Cornelia Funke</h3>
+											<p>Inkheart is the exciting tale of a man and his daughter, in which they try to take down a villain who has escaped from their storybook. .</p>
+										</article>
+										<article>
+											<h3>Megan Skorzewski</h3>
+											<a href="https://www.amazon.com/Giver-Quartet-Lois-Lowry/dp/0544336267/ref=sr_1_1?ie=UTF8&qid=1497551208&sr=8-1&keywords=the+book+the+giver" class="image"><img src="https://images.duckduckgo.com/iu/?u=http%3A%2F%2Freaderswonderland.com%2Fwp-content%2Fuploads%2F2015%2F01%2Fthe-giver-lois-lowry.jpg&f=1" alt="" /></a>
+											<h3>The Giver by Lois Lowry</h3>
+											<p>The Giver is a story about a boy who lives in a futuristic society and is assigned a job that teaches him a lot about himself and the world around him.</p>
+										</article>
+										<article>
+											<h3>Charlie Zern</h3>
+											<a href="https://www.amazon.com/Uncle-Petros-Goldbachs-Conjecture-Mathematical/dp/1582341281" class="image"><img src="http://i0.ebkimg.com/previews/001/001654/001654390/001654390-hq-168-80.jpg" alt="" /></a>
+											<h3>Uncle Petros and Goldbach's Conjecture by Apostolos Doxiadis</h3>
+											<p>Uncle Petros follows a nephew's discovery of his reclusive uncle's past whose life as a mathematician which brought him to the brink of insanity.</p>
+										</article>
+									</div>
+								</section>
+
+							<!-- Section -->
+								
+
+							<!-- Footer -->
+								<footer id="footer">
+									<p class="copyright">&copy; SearchBook created by Sabella Rose Jaroszewski, Megan Skorzewski, Charlie Zern All rights reserved. Demo Images: <a href="https://unsplash.com">Unsplash</a>. Design: <a href="https://html5up.net">HTML5 UP</a>.</p>
+								</footer>
+
+						</div>
+					</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/skel.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
