@@ -33,42 +33,45 @@
 									<header class="main">
 										<h1>Results</h1>
 									</header>
-
+								<form method="get" action="/cover">
+   											<button type="submit">Want to change the cover?</button>
+										</form> 
 									<!--<span class="image main"><img src="images/pic11.jpg" alt="" /></span>-->
-									
-									<%for @num in 0..9%>
-										
-										<%if @book[@num]["volumeInfo"]["title"].is_a? String%>
-											<form action="/elements" method="POST">
-												<input type="hidden" value="hidden" name="info"/><br>
-    											<input type="submit" value="<%=@book[@num]["volumeInfo"]["title"]%>" name="Book_title" />
-											</form>
-										<%else%>
-											<h2>There is no title, sorry!!</h2>
+								<%if @book.is_a? Array%>
+									<% if @book.length < 10 %>
+										<p>Please search for a more common term.</p>
+									<%else%>
+										<%for @num in 0..9%>
+												<%if @book[@num]["volumeInfo"]["title"].is_a? String%>
+													<h2><%=@book[@num]["volumeInfo"]["title"]%></h2>
+												<%else%>
+													<h2>There is no title, sorry!!</h2>
+												<%end%>
+												
+												<%if @book[@num]["volumeInfo"]["authors"].is_a? Array%>
+													<h3><%=@book[@num]["volumeInfo"]["authors"].join(", ")%></h3>
+												<%else%>
+													<h3>Authors are unknown</h3>
+												<%end%>
+												
+												<%if @book[@num]["volumeInfo"].key?("imageLinks")%>
+													<img src="<%=@book[@num]["volumeInfo"]["imageLinks"]["thumbnail"]%>">
+												<%else%>
+													<h3>No image provided</h3>
+												<%end%>
+												
+												<%if @book[@num].key?("searchInfo")%>
+													<p><%=@book[@num]["searchInfo"]["textSnippet"]%></p>
+												<%else%>
+													<p>No description provided</p>
+												<%end%>
+												
+												<hr></hr>
+											<%end%>
 										<%end%>
-										
-										<%if @book[@num]["volumeInfo"]["authors"].is_a? Array%>
-											<h3><%=@book[@num]["volumeInfo"]["authors"].join(", ")%></h3>
-										<%else%>
-											<h3>Authors are unknown</h3>
-										<%end%>
-										
-										<%if @book[@num]["volumeInfo"].key?("imageLinks")%>
-											<img src="<%=@book[@num]["volumeInfo"]["imageLinks"]["thumbnail"]%>">
-										<%else%>
-											<h3>No image provided</h3>
-										<%end%>
-										
-										<%if @book[@num].key?("searchInfo")%>
-											<p><%=@book[@num]["searchInfo"]["textSnippet"]%></p>
-										<%else%>
-											<h3>No description provided</h3>
-										<%end%>
-										
-										<hr></hr>
-									<%end%>
-									
-									
+								<%else%>
+									<p>Sorry, there are no results for that word.</p>
+								<%end%>
 
 								</section>
 
